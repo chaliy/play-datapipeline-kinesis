@@ -1,0 +1,6 @@
+# Terrafrom
+.terraform
+*.tfstate.backup
+
+# Devs
+chaliy*

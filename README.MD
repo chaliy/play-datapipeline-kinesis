@@ -17,4 +17,16 @@ Product lifecycle database. During product lifecycle some events are generated. 
 
 # Events
 
-`Production` - Produt created on factory 
+`Production` - Produt created on factory.
+`Service`, `Warranty`, `Note`, `Theft`, `Incendent` - Other events
+
+# Database
+
+products:
+  sn: string: hash
+  name: name of the product
+  lefecycle:
+    type:
+    timestamp:
+    sn: 
+    country: 

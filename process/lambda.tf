@@ -78,10 +78,29 @@ resource "aws_iam_role_policy" "kinesis-access" {
 EOF
 }
 
+resource "aws_iam_role_policy" "dynamodb-products-access" {
+  name = "${var.application}-${var.function_name}-dynamodb-products-access-policy"
+  role = "${aws_iam_role.default.id}"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["dynamodb:*"],
+      "Resource": "arn:aws:dynamodb:${var.region}:${var.account_id}:table/${var.application}-products"
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_lambda_function" "process" {
   filename         = "${data.archive_file.function.output_path}"
   function_name    = "${var.application}-${var.function_name}"
   role             = "${aws_iam_role.default.arn}"
+  timeout          = 10
   handler          = "index.handler"
   runtime          = "nodejs4.3"
   source_code_hash = "${data.archive_file.function.output_base64sha256}"

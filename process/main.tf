@@ -12,10 +12,13 @@ variable "stream_arn" {
 
 variable "application" {
   description = "Application name"
-  default     = "play-datapipeline-kinesis"
 }
 
 variable "function_name" {
   description = "Name of the dispatcher function"
   default     = "process"
+}
+
+output "event_source_mapping_uuid" {
+  value = "${aws_lambda_event_source_mapping.kinesis.uuid}"
 }

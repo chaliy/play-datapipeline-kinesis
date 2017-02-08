@@ -15,6 +15,12 @@ module "kinesis" {
   source = "./kinesis"
 }
 
+module "db" {
+  source = "./db"
+
+  application = "${var.application}"
+}
+
 module "process" {
   source = "./process"
 

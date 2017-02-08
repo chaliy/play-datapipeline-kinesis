@@ -5,3 +5,7 @@ variable "account_id" {
 variable "region" {
   description = "AWS Region"
 }
+
+module "kinesis" {
+  source = "./kinesis"
+}

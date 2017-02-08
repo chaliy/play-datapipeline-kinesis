@@ -2,6 +2,7 @@
 .terraform
 *.tfstate.backup
 *.tfstate
+terraform.tfvars
 
 # Devs
 chaliy*

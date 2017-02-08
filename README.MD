@@ -17,7 +17,7 @@ Application uses AWS Kinesis as input queue, it uses 48 hours of retention makin
 - Ensure dependecies: `nodejs`, `terraform`, `make`
 - export `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
 - add `terraform.tfvars` with `region` and `account_id`
-- run `make apply'
+- run `make apply`
 
 # License
 

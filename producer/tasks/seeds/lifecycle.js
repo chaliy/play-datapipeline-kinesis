@@ -1,6 +1,9 @@
+// Generate lifecicle entries. Just run it as `node lifecicle.js`
 const co = require('co');
+const _ = require('lodash');
 const uuid = require('uuid').v4;
-const put = require('../../lib/put');
+const putRecord = require('../../lib/kinesis').putRecord;
+const putRecords = require('../../lib/kinesis').putRecords;
 
 const faker = require('faker');
 const types = [
@@ -9,22 +12,28 @@ const types = [
 
 const products = require('../../data/products.json');
 
-co(function*() {
-  for (let i = 0; i < 100; i++) {
-    const product = faker.random.arrayElement(products);
-    const type = faker.random.arrayElement(types);
+const generate = () => {
+  const product = faker.random.arrayElement(products);
+  const type = faker.random.arrayElement(types);
 
-    const response = yield put({
-      Data: JSON.stringify({
-        type: type,
-        timestamp: new Date(),
-        sn: product.serialNumber,
-        countryCode: faker.address.countryCode()
-      }),
-      PartitionKey: uuid(),
-      StreamName: 'kinesis-test'
-    });
-    console.log(response);
-  }
+  return {
+    type: type,
+    timestamp: new Date(),
+    sn: product.serialNumber,
+    countryCode: faker.address.countryCode()
+  };
+};
+
+co(function*() {
+  const records = _.range(200).map(generate);
+
+  return yield putRecords({
+    Records: records.map(record => ({
+      Data: JSON.stringify(record),
+      PartitionKey: uuid()
+    })),
+    StreamName: 'play-datapipeline-kinesis-products-lifecycle-stream'
+  });
 })
+.then(console.log)
 .catch(console.log);

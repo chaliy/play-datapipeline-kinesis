@@ -1,0 +1,20 @@
+{
+  "name": "play-datapipeline-kinesis-process",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "semistandard && mocha",
+    "build": "copyfiles index.js lib/* node_modules/denodeify/index.js ../dist"
+  },
+  "dependencies": {
+    "denodeify": "^1.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "copyfiles": "^1.0.0",
+    "mocha": "^3.2.0",
+    "semistandard": "^9.1.0"
+  }
+}

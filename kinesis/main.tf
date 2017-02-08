@@ -12,3 +12,7 @@ resource "aws_kinesis_stream" "test" {
     Environment = "test"
   }
 }
+
+output "test_stream_arn" {
+  value = "${aws_kinesis_stream.test.arn}"
+}

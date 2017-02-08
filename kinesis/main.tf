@@ -1,7 +1,11 @@
-resource "aws_kinesis_stream" "test" {
-  name             = "kinesis-test"
+variable "application" {
+  description = "Application name"
+}
+
+resource "aws_kinesis_stream" "products-lifecycle" {
+  name             = "${var.application}-products-lifecycle-stream"
   shard_count      = 1
-  retention_period = 48
+  retention_period = 48                                             # 2 days
 
   shard_level_metrics = [
     "IncomingBytes",
@@ -9,10 +13,10 @@ resource "aws_kinesis_stream" "test" {
   ]
 
   tags {
-    Environment = "test"
+    Application = "${var.application}"
   }
 }
 
-output "test_stream_arn" {
-  value = "${aws_kinesis_stream.test.arn}"
+output "products_lifecycle_stream_arn" {
+  value = "${aws_kinesis_stream.products-lifecycle.arn}"
 }

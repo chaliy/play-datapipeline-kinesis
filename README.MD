@@ -1,32 +1,24 @@
-# Scenario
+# AWS Kinesis Serverless Demo Application
 
-Product lifecycle database. During product lifecycle some events are generated. Applicaiton will process them build some analytics on top.
+Application demoes data pipline Producer > AWS Kinesis > AWS Lambda > AWS DynamoDb.
 
-# Model
+## Scenario
 
-```
-{
-  "serialNumber": "P0000830",
-  "product": "Cheese",
-  "productName": "Small Frozen Mouse",
-  "productAdjective": "Handcrafted",
-  "productMaterial": "Granite",
-  "site": "Huaway OEM"
-}
-```
+Product lifecycle database. During product lifecycle some events are generated. Applicaiton will process them and build some analytics.
 
-# Events
+## Technical Overview
 
-`Production` - Produt created on factory.
-`Service`, `Warranty`, `Note`, `Theft`, `Incendent` - Other events
+Application uses AWS Kinesis as input queue, it uses 48 hours of retention making it effectivelly peresisten queue. Processing is done using AWS Lambda. Storage is AWS DynamoDb. 
 
-# Database
+![Cartton](/docs/cartoon.png)
 
-products:
-  sn: string: hash
-  name: name of the product
-  lefecycle:
-    type:
-    timestamp:
-    sn: 
-    country: 
+## How run
+
+- Ensure dependecies: `nodejs`, `terraform`, `make`
+- export `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+- add `terraform.tfvars` with `region` and `account_id`
+- run `make apply'
+
+# License
+
+MIT

@@ -13,6 +13,8 @@ variable "application" {
 
 module "kinesis" {
   source = "./kinesis"
+
+  application = "${var.application}"
 }
 
 module "db" {
@@ -28,5 +30,5 @@ module "process" {
   region      = "${var.region}"
   application = "${var.application}"
 
-  stream_arn = "${module.kinesis.test_stream_arn}"
+  stream_arn = "${module.kinesis.products_lifecycle_stream_arn}"
 }

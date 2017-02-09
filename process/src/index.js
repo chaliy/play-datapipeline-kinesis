@@ -1,8 +1,6 @@
 'use strict';
 let co = require('co');
 let omit = require('lodash.omit');
-let t = require('exectimer');
-
 
 let AWS = require('aws-sdk');
 let dynamo = new AWS.DynamoDB.DocumentClient();
@@ -13,30 +11,14 @@ let update = denodeify(dynamo.update.bind(dynamo));
 
 let DB_TABLE = 'play-datapipeline-kinesis-products';
 
-let measure = (name, func) => co(function*() {
-  let tick = new t.Tick(name);
-  tick.start();
-  let result = yield func();
-  tick.stop();
-  return result;
-});
-
-let dumpMeasures = () => {
-  let measures = {};
-  for (let key of Object.keys(t.timers)) {
-    measures[key] = t.timers[key].parse(t.timers[key].mean());
-  }
-  return measures;
-};
-
-let getProduct = sn => measure('get', () => co(function*() {
+let getProduct = sn => co(function*() {
   return (yield get({
     TableName: DB_TABLE,
     Key: { sn: sn }
   })).Item || {};
-}));
+});
 
-let addEntry = (sn, entry) => measure('update', () => co(function*() {
+let addEntry = (sn, entry) => co(function*() {
   yield update({
     TableName: DB_TABLE,
     Key: { sn: sn },
@@ -45,9 +27,9 @@ let addEntry = (sn, entry) => measure('update', () => co(function*() {
       ':entry': [entry]
     }
   });
-}));
+});
 
-let putProduct = (sn, entry) => measure('put', () => co(function*() {
+let putProduct = (sn, entry) => co(function*() {
   yield put({
     TableName: DB_TABLE,
     Item: {
@@ -57,7 +39,7 @@ let putProduct = (sn, entry) => measure('put', () => co(function*() {
       ]
     }
   });
-}));
+});
 
 exports.handler = (event, context) => {
   co(function*() {
@@ -75,7 +57,7 @@ exports.handler = (event, context) => {
         yield putProduct(sn, entry);
       }
 
-      console.log('Added lifecycle', sn, JSON.stringify(entry), dumpMeasures());
+      console.log('Added lifecycle', sn, JSON.stringify(entry));
     }
   })
   .then(context.succeed)

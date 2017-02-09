@@ -19,6 +19,10 @@ Application uses AWS Kinesis as input queue, it uses 48 hours of retention makin
 - add `terraform.tfvars` with `region` and `account_id`
 - run `make apply`
 
+To generate few items:
+
+- run `node ./producer/tasks/seeds/lifecycle.js`
+
 # License
 
 MIT

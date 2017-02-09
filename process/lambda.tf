@@ -100,14 +100,15 @@ resource "aws_lambda_function" "process" {
   filename         = "${data.archive_file.function.output_path}"
   function_name    = "${var.application}-${var.function_name}"
   role             = "${aws_iam_role.default.arn}"
-  timeout          = 10
+  timeout          = 60
+  memory_size      = 1024
   handler          = "index.handler"
   runtime          = "nodejs4.3"
   source_code_hash = "${data.archive_file.function.output_base64sha256}"
 }
 
 resource "aws_lambda_event_source_mapping" "kinesis" {
-  batch_size        = 100
+  batch_size        = 50
   event_source_arn  = "${var.stream_arn}"
   enabled           = true
   function_name     = "${aws_lambda_function.process.arn}"

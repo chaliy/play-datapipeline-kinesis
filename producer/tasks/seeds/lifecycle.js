@@ -2,7 +2,6 @@
 const co = require('co');
 const _ = require('lodash');
 const uuid = require('uuid').v4;
-const putRecord = require('../../lib/kinesis').putRecord;
 const putRecords = require('../../lib/kinesis').putRecords;
 
 const faker = require('faker');

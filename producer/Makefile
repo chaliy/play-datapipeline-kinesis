@@ -1,4 +1,4 @@
 .PHONY: all
 
 restore:
-  yarn install
+	yarn install

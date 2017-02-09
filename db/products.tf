@@ -8,8 +8,4 @@ resource "aws_dynamodb_table" "products" {
     name = "sn"
     type = "S"
   }
-
-  tags {
-    Application = "${var.application}"
-  }
 }

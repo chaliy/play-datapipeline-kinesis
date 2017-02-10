@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "semistandard && mocha",
-    "build": "copyfiles index.js lib/* node_modules/denodeify/index.js node_modules/co/index.js node_modules/lodash.omit/index.js node_modules/md5/md5.js node_modules/md5/package.json node_modules/crypt/crypt.js node_modules/crypt/package.json node_modules/charenc/charenc.js node_modules/charenc/package.json node_modules/is-buffer/index.js ../dist"
+    "build": "webpack"
   },
   "dependencies": {
     "co": "^4.6.0",
@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "copyfiles": "^1.0.0",
     "mocha": "^3.2.0",
-    "semistandard": "^9.1.0"
+    "semistandard": "^9.1.0",
+    "webpack": "^2.2.1"
   }
 }

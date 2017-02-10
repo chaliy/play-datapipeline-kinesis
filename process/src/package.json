@@ -6,12 +6,13 @@
   "main": "index.js",
   "scripts": {
     "test": "semistandard && mocha",
-    "build": "copyfiles index.js lib/* node_modules/denodeify/index.js node_modules/co/index.js node_modules/lodash.omit/index.js ../dist"
+    "build": "copyfiles index.js lib/* node_modules/denodeify/index.js node_modules/co/index.js node_modules/lodash.omit/index.js node_modules/md5/md5.js node_modules/md5/package.json node_modules/crypt/crypt.js node_modules/crypt/package.json node_modules/charenc/charenc.js node_modules/charenc/package.json node_modules/is-buffer/index.js ../dist"
   },
   "dependencies": {
     "co": "^4.6.0",
     "denodeify": "^1.2.1",
-    "lodash.omit": "^4.5.0"
+    "lodash.omit": "^4.5.0",
+    "md5": "^2.2.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",

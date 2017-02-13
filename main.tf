@@ -32,3 +32,11 @@ module "process" {
 
   stream_arn = "${module.kinesis.products_lifecycle_stream_arn}"
 }
+
+module "analytics" {
+  source = "./analytics"
+
+  account_id  = "${var.account_id}"
+  region      = "${var.region}"
+  application = "${var.application}"
+}
